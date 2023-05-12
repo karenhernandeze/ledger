@@ -135,17 +135,36 @@ def printData(ledger, flags):
 
     # add the BTC character to the result 
     for k, v in sumTotalBTC.items():
+        if flags:
+            for i in flags: 
+                if i in sumTotalBTC:
+                    final_BTC_sum = final_BTC_sum + float(sumTotalBTC[i])
+                    currency = "BTC" 
+                    result = (str(sumTotalBTC[i]) + currency)
+                    sumTotalBTC[i] = result
+            break
+        else:
+            final_BTC_sum = final_BTC_sum + v
         currency = "BTC" 
         result = (str(v) + currency)
         sumTotalBTC[k] = result
-        final_BTC_sum = final_BTC_sum + v
+
     # add the $ character to the result 
     for k, v in output.items():
+        if flags:
+            for i in flags: 
+                if i in output:
+                    final_Dls_sum = final_Dls_sum + float(output[i])
+                    currency = "$" 
+                    result = (currency+str(output[i]))
+                    output[i] = result
+            break
+        else:
+            final_Dls_sum = final_Dls_sum + v
         currency = "$" 
         result = (currency+str(v))
         output[k] = result
-        final_Dls_sum = final_Dls_sum + v
-
+        
     # merge both currencies into one dict 
     for key, value in output.items():
         merged_currencies[key].append(value)
@@ -157,18 +176,38 @@ def printData(ledger, flags):
     GREEN = '\033[32m'
     BLUE = '\033[34m'
     BLACK = '\033[30m'
+    WHITE = '\033[37m'
 
     if flags:
         j = 0
         for i in flags:
-            if i in merged_currencies.keys():
-                my_list = list(merged_currencies.items())
-                print("Here is the accour", i)
-
+            if i in merged_currencies:
+                if len(merged_currencies[i]) == 1:
+                    output = '{}'.format(*merged_currencies[i])
+                else:
+                    output = '{} {}'.format(*merged_currencies[i])
+                padded_number = output.rjust(20, " ")
+                if "-" in padded_number:
+                    print(f"{RED}{padded_number}", f"{BLUE}{i}")  
+                else:
+                    print(f"{GREEN}{padded_number}", f"{BLUE}{i}")  
             else:
                 print("Account does not exist: ", i)
             j += 1
-            
+
+        print(f"{WHITE}",'-' * 40)
+
+        formatted_value_b = "{:.2f}".format(final_BTC_sum).rjust(16, " ")
+        formatted_value_d = "{:.2f}".format(final_Dls_sum).rjust(18, " ")
+        if final_Dls_sum < 0:
+            print(f"{RED}$ {formatted_value_d}")  
+        else:
+            print(f"{GREEN}$ {formatted_value_d}")  
+        if final_BTC_sum < 0:
+            print(f"{RED}{formatted_value_b} BTC")  
+        else:
+            print(f"{GREEN}{formatted_value_b} BTC")  
+
     else:
         for k, v in merged_currencies.items():
             output = ' '.join(v).strip('[]')
