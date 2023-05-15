@@ -1,5 +1,5 @@
 import sys 
-from commands.print import printCommand
+from commands.register import registerCommand
 from commands.balance import balanceCommand
 
 # Accepted Commands :
@@ -40,14 +40,24 @@ def checkCommand():
         else:
             balanceCommand(cli[index+1], "")
     
-    
+    # REGISTER COMMAND MANAGEMENT 
     elif "register" in cli or "reg" in cli:
-        print("register")
+         # this condition is for when an account is passed 
+        if "--sort" in cli or "-s" in cli:
+            registerCommand(cli[index+1], "sort")
+        else:
+            registerCommand(cli[index+1], "")
 
+        # registerCommand(cli[index+1], "")
+
+    # PRINT COMMAND MANAGEMENT 
     elif "print" in cli:
         print("PRINT")
-    # elif "-f" not in cli or "-file" not in cli:
-    #     raise Exception ("Enter a valid command: {\n\tbalance,\n\tbal,\n\tregister,\n\treg,\n\tprint\n}\nAnd specify the file name with the given flag (-f namefile, -file namefile)")
+
+
+    # no command 
+    elif "-f" not in cli or "-file" not in cli:
+        raise Exception ("Enter a valid command: {\n\tbalance,\n\tbal,\n\tregister,\n\treg,\n\tprint\n}\nAnd specify the file name with the given flag (-f namefile, -file namefile)")
 
 
     
