@@ -92,7 +92,6 @@ def createOuput(lines):
     return ledger
 
 def printData(ledger, flags):
-    # print(flags)
     RED = '\033[31m'
     GREEN = '\033[32m'
     BLUE = '\033[34m'
@@ -135,10 +134,6 @@ def printData(ledger, flags):
                 
                 prevValueDls = "${:.2f}".format(final_Dls_sum)
                 prevValueBtc = "{:.2f}BTC".format(final_BTC_sum)
-
-                color1 = BLACK
-                color2 = BLACK
-                color3 = BLACK
                 
                 if flag == 1:
                     # print("FLAG 1")
@@ -211,10 +206,6 @@ def printData(ledger, flags):
 
                 prevValueDls = "${:.2f}".format(final_Dls_sum)
                 prevValueBtc = "{:.2f}BTC".format(final_BTC_sum)
-
-                color1 = BLACK
-                color2 = BLACK
-                color3 = BLACK
                 
                 if flag == 1:
                     if "-" in valueBTC:

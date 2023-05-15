@@ -1,4 +1,3 @@
-# NEED TO FIND ANOTHER APPROACH FOR WHEN MORE THAN 1 TRANSACTION IS LISTED AND AT THE END THE DESTINATION
 from collections import defaultdict
 
 def balanceCommand(filename: str, flags: str):

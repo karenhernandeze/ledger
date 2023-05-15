@@ -1,6 +1,7 @@
 import sys 
 from commands.register import registerCommand
 from commands.balance import balanceCommand
+from commands.print import printCommand
 
 # Accepted Commands :
 accepted_commands = ["bal", "balance", "register", "reg", "print"] 
@@ -48,12 +49,13 @@ def checkCommand():
         else:
             registerCommand(cli[index+1], "")
 
-        # registerCommand(cli[index+1], "")
-
     # PRINT COMMAND MANAGEMENT 
     elif "print" in cli:
-        print("PRINT")
-
+        # this condition is for when an account is passed 
+        if "--sort" in cli or "-s" in cli:
+            printCommand(cli[index+1], "sort")
+        else:
+            printCommand(cli[index+1], "")
 
     # no command 
     elif "-f" not in cli or "-file" not in cli:
