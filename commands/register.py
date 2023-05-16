@@ -2,7 +2,6 @@ from datetime import datetime
 
 def registerCommand(filename: str, flags: str):
     transaction =[]
-
     with open(f'ledgers/{filename}', 'r') as f: 
         # if there is NOT an include in the file 
         for line in f: 
@@ -34,10 +33,10 @@ def registerCommand(filename: str, flags: str):
                 else:
                     transaction.append(line.strip())
 
-    data = createOuput(transaction)
+    data = createOuput(transaction, flags)
     printData(data, flags)
 
-def createOuput(lines):
+def createOuput(lines, flags):
     ledger = {}
     data = {}
     index = 0
@@ -49,8 +48,9 @@ def createOuput(lines):
     # transaction and the second value will be transaction to where the money goes
     for i,x in enumerate(lines):
         if x[0].isdigit():
+            if data:
+                ledger[x] = data
             data = {}
-            ledger[x] = data
         else:
             # if the line is an odd number it is the money spent. Since there are 3 different
             # lines, the one that divides by 3 is the one where the money was sent to 
@@ -63,7 +63,18 @@ def createOuput(lines):
                 key = (x[:index]).strip()
                 value = (x[index:len(x)]).strip()
                 tempValue = value
-                data[key] = value
+
+                if flags:
+                    if "sort" in flags:
+                        data[key] = value
+                    else:
+                        for i in flags: 
+                            if i in key:
+                                data[key] = value
+                            continue
+                else:
+                    data[key] = value
+
             # third line in the transaction
             else:
                 flag = 0
@@ -82,13 +93,28 @@ def createOuput(lines):
                 else:
                     value = value
 
-                if flag == 1: 
-                    if "-" in value: 
-                        data[key] = value[1:]
+                if flags: 
+                    if "sort" in flags:
+                        data[key] = value
                     else:
-                        data[key] = '-'+value
+                        for i in flags: 
+                            if i in key:
+                                if flag == 1: 
+                                    if "-" in value: 
+                                        data[key] = value[1:]
+                                    else:
+                                        data[key] = '-'+value
+                                else:
+                                    data[key] = value
+                            continue
                 else:
-                    data[key] = value
+                    if flag == 1: 
+                        if "-" in value: 
+                            data[key] = value[1:]
+                        else:
+                            data[key] = '-'+value
+                    else:
+                        data[key] = value
     return ledger
 
 def printData(ledger, flags):
@@ -105,7 +131,7 @@ def printData(ledger, flags):
     valueDLS = 0
     flag = 0   
     
-    if "sort" in flags:
+    if "sort" in flags or "-s" in flags or "--sort" in flags:
         # Sort the dictionary by date in descending order
         ledger = dict(sorted(ledger.items(), key=lambda x: datetime.strptime(x[0].split()[0], '%Y/%m/%d'), reverse=True))
 
@@ -136,7 +162,6 @@ def printData(ledger, flags):
                 prevValueBtc = "{:.2f}BTC".format(final_BTC_sum)
                 
                 if flag == 1:
-                    # print("FLAG 1")
                     if "-" in valueBTC:
                         color1 = RED
                     else:

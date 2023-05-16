@@ -34,10 +34,10 @@ def printCommand(filename: str, flags: str):
                 else:
                     transaction.append(line.strip())
 
-    data = createOuput(transaction)
+    data = createOuput(transaction, flags)
     printData(data, flags)
 
-def createOuput(lines):
+def createOuput(lines, flags):
     ledger = {}
     data = {}
     index = 0
@@ -49,8 +49,9 @@ def createOuput(lines):
     # transaction and the second value will be transaction to where the money goes
     for i,x in enumerate(lines):
         if x[0].isdigit():
+            if data:
+                ledger[x] = data
             data = {}
-            ledger[x] = data
         else:
             # second line 
             if ((i+1)%3 != 0):

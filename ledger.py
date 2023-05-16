@@ -44,18 +44,64 @@ def checkCommand():
     # REGISTER COMMAND MANAGEMENT 
     elif "register" in cli or "reg" in cli:
          # this condition is for when an account is passed 
-        if "--sort" in cli or "-s" in cli:
+        if len(cli) > 5 and ("--sort" in cli or "-s" in cli): 
+            if "reg" in cli:
+                index_bal = cli.index("reg") 
+            else:
+                index_bal = cli.index("register") 
+            # number of accounts requested
+            number_accounts = len(cli) - (index_bal + 1)
+            account = []
+            for i in range(number_accounts):
+                account.append(cli[index_bal + 1 + i])
+            registerCommand(cli[index+1], list(account))
+        elif "--sort" in cli or "-s" in cli: 
             registerCommand(cli[index+1], "sort")
+        elif len(cli) > 4:
+            if "reg" in cli:
+                index_bal = cli.index("reg") 
+            else:
+                index_bal = cli.index("register") 
+            # number of accounts requested
+            number_accounts = len(cli) - (index_bal + 1)
+            account = []
+            for i in range(number_accounts):
+                account.append(cli[index_bal + 1 + i])
+            registerCommand(cli[index+1], list(account))
         else:
             registerCommand(cli[index+1], "")
 
     # PRINT COMMAND MANAGEMENT 
     elif "print" in cli:
-        # this condition is for when an account is passed 
-        if "--sort" in cli or "-s" in cli:
+         # this condition is for when an account is passed 
+        if len(cli) > 5 and ("--sort" in cli or "-s" in cli): 
+            if "reg" in cli:
+                index_bal = cli.index("reg") 
+            else:
+                index_bal = cli.index("register") 
+            # number of accounts requested
+            number_accounts = len(cli) - (index_bal + 1)
+            account = []
+            for i in range(number_accounts):
+                account.append(cli[index_bal + 1 + i])
+            printCommand(cli[index+1], list(account))
+        elif "--sort" in cli or "-s" in cli: 
             printCommand(cli[index+1], "sort")
+        elif len(cli) > 4:
+            if "reg" in cli:
+                index_bal = cli.index("reg") 
+            else:
+                index_bal = cli.index("register") 
+            # number of accounts requested
+            number_accounts = len(cli) - (index_bal + 1)
+            account = []
+            for i in range(number_accounts):
+                account.append(cli[index_bal + 1 + i])
+            printCommand(cli[index+1], list(account))
         else:
             printCommand(cli[index+1], "")
+
+
 
     # no command 
     elif "-f" not in cli or "-file" not in cli:
