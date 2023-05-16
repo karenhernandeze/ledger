@@ -75,10 +75,7 @@ def checkCommand():
     elif "print" in cli:
          # this condition is for when an account is passed 
         if len(cli) > 5 and ("--sort" in cli or "-s" in cli): 
-            if "reg" in cli:
-                index_bal = cli.index("reg") 
-            else:
-                index_bal = cli.index("register") 
+            index_bal = cli.index("print") 
             # number of accounts requested
             number_accounts = len(cli) - (index_bal + 1)
             account = []
@@ -88,10 +85,7 @@ def checkCommand():
         elif "--sort" in cli or "-s" in cli: 
             printCommand(cli[index+1], "sort")
         elif len(cli) > 4:
-            if "reg" in cli:
-                index_bal = cli.index("reg") 
-            else:
-                index_bal = cli.index("register") 
+            index_bal = cli.index("print") 
             # number of accounts requested
             number_accounts = len(cli) - (index_bal + 1)
             account = []

@@ -63,7 +63,17 @@ def createOuput(lines, flags):
                 key = (x[:index]).strip()
                 value = (x[index:len(x)]).strip()
                 tempValue = value
-                data[key] = value
+
+                if flags:
+                    if "sort" in flags:
+                        data[key] = value
+                    else:
+                        for i in flags: 
+                            if i in key:
+                                data[key] = value
+                            continue
+                else:
+                    data[key] = value
             # third line in the transaction
             else:
                 flag = 0
@@ -82,13 +92,28 @@ def createOuput(lines, flags):
                 else:
                     value = value
 
-                if flag == 1: 
-                    if "-" in value: 
-                        data[key] = value[1:]
+                if flags: 
+                    if "sort" in flags:
+                        data[key] = value
                     else:
-                        data[key] = '-'+value
+                        for i in flags: 
+                            if i in key:
+                                if flag == 1: 
+                                    if "-" in value: 
+                                        data[key] = value[1:]
+                                    else:
+                                        data[key] = '-'+value
+                                else:
+                                    data[key] = value
+                            continue
                 else:
-                    data[key] = value
+                    if flag == 1: 
+                        if "-" in value: 
+                            data[key] = value[1:]
+                        else:
+                            data[key] = '-'+value
+                    else:
+                        data[key] = value
     return ledger
 
 def printData(ledger, flags):
@@ -97,7 +122,8 @@ def printData(ledger, flags):
     BLUE = '\033[34m'
     BLACK = '\033[30m'
 
-    if "sort" in flags:
+    # if "sort" in flags:
+    if "sort" in flags or "-s" in flags or "--sort" in flags:
         ledger = dict(sorted(ledger.items(), key=lambda x: datetime.strptime(x[0].split()[0], '%Y/%m/%d'), reverse=True))
 
     for i, j in ledger.items():
