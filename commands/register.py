@@ -162,53 +162,53 @@ def printData(ledger, flags):
                 prevValueBtc = "{:.2f}BTC".format(final_BTC_sum)
                 
                 if flag == 1:
-                    if "-" in valueBTC:
+                    if "-" in str(valueBTC):
                         color1 = RED
                     else:
                         color1 = GREEN
-                    if "-" in prevValueDls:
+                    if "-" in str(prevValueDls) or "-" in str(prevValueBtc):
                         color2 = RED
                     else:
                         color2 = GREEN
-                    if "-" in prevValueBtc:
+                    if "-" in str(prevValueBtc):
                         color3 = RED
                     else:
                         color3 = GREEN
 
                     # if ledger has only $ 
                     if final_BTC_sum == 0:
-                        valueBTC = valueBTC + "BTC"
+                        valueBTC = str(valueBTC) + "BTC"
                         print(f"{BLUE}\t{key_string}{color1}{valueBTC.ljust(15)}{color2}{prevValueDls}")
                     # if ledger has only BTC
                     elif final_Dls_sum == 0:
-                        valueBTC = valueBTC + "BTC"
+                        valueBTC = str(valueBTC) + "BTC"
                         print(f"{BLUE}\t{key_string}{color1}{valueBTC.ljust(15)}{color2}{prevValueBtc}")
                     # if ledger manages both 
                     else:
-                        valueBTC = valueBTC + "BTC"
+                        valueBTC = str(valueBTC) + "BTC"
                         print(f"{BLUE}\t{key_string}{color1}{valueBTC.ljust(15)}{color2}{prevValueDls} {color3}{prevValueBtc}")
                 else:
-                    if "-" in valueDLS:
+                    if "-" in str(valueDLS):
                         color1 = RED
                     else:
                         color1 = GREEN
-                    if "-" in prevValueDls:
+                    if "-" in str(prevValueDls) or "-" in str(prevValueBtc):
                         color2 = RED
                     else:
                         color2 = GREEN
-                    if "-" in prevValueBtc:
+                    if "-" in str(prevValueBtc):
                         color3 = RED
                     else:
                         color3 = GREEN
 
                     if final_BTC_sum == 0:
-                        valueDLS = "$"+valueDLS
+                        valueDLS = "$"+str(valueDLS)
                         print(f"{BLUE}\t{key_string}{color1}{valueDLS.ljust(15)}{color2}{prevValueDls}")
                     elif final_Dls_sum == 0:
-                        valueDLS = "$"+valueDLS
+                        valueDLS = "$"+str(valueDLS)
                         print(f"{BLUE}\t{key_string}{color1}{valueDLS.ljust(15)}{color2}{prevValueBtc}")
                     else:
-                        valueDLS = "$"+valueDLS
+                        valueDLS = "$"+str(valueDLS)
                         print(f"{BLUE}\t{key_string}{color1}{valueDLS.ljust(15)}{color2}{prevValueDls} {color3}{prevValueBtc}")
 
             elif (inc%2 == 1):
@@ -233,15 +233,15 @@ def printData(ledger, flags):
                 prevValueBtc = "{:.2f}BTC".format(final_BTC_sum)
                 
                 if flag == 1:
-                    if "-" in valueBTC:
+                    if "-" in str(valueBTC):
                         color1 = RED
                     else:
                         color1 = GREEN
-                    if "-" in prevValueDls:
+                    if "-" in str(prevValueDls):
                         color2 = RED
                     else:
                         color2 = GREEN
-                    if "-" in prevValueDls:
+                    if "-" in str(prevValueDls):
                         color3 = RED
                     else:
                         color3 = GREEN
@@ -253,29 +253,29 @@ def printData(ledger, flags):
                     elif final_Dls_sum == 0:
                         print(f"{BLUE}\t{key_string}{color1}{valueBTC.ljust(15)}BTC{color2}{prevValueBtc}")
                     else:
-                        valueBTC = valueBTC + "BTC"
+                        valueBTC = str(valueBTC) + "BTC"
                         print(f"{BLUE}\t{key_string}{color1}{valueBTC.ljust(15)}{color2}{prevValueDls} {color3}{prevValueBtc}")
                 else:
-                    if "-" in valueDLS:
+                    if "-" in str(valueDLS):
                         color1 = RED
                     else:
                         color1 = GREEN
-                    if "-" in prevValueDls:
+                    if "-" in str(prevValueDls):
                         color2 = RED
                     else:
                         color2 = GREEN
-                    if "-" in prevValueBtc:
+                    if "-" in str(prevValueBtc):
                         color3 = RED
                     else:
                         color3 = GREEN
                     
                     if final_BTC_sum == 0:
-                        valueDLS = "$"+valueDLS
+                        valueDLS = "$"+str(valueDLS)
                         print(f"{BLUE}\t{key_string}{color1}{valueDLS.ljust(15)}{color2}{prevValueDls}")
                     elif final_Dls_sum == 0:
-                        valueDLS = "$"+valueDLS
+                        valueDLS = "$"+str(valueDLS)
                         print(f"{BLUE}\t{key_string}{color1}{valueDLS.ljust(15)}{color2}{prevValueBtc}")
                     else:
-                        valueDLS = "$"+valueDLS
+                        valueDLS = "$"+str(valueDLS)
                         print(f"{BLUE}\t{key_string}{color1}{valueDLS.ljust(15)}{color2}{prevValueDls} {color3}{prevValueBtc}")
             inc += 1
