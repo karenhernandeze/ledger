@@ -38,32 +38,58 @@ A file must always be specified so the -f flag must always be included:
 
 
 ### Basic Reporting Commands
+
 ```
 balance
 bal
 ```
-    Show account balances.
 
+   Show account balances.
+
+```
 register
 reg
-    Show all transactions with running total.
+```
 
+   Show all transactions with running total.
+
+```
 print
-    Print transactions in a format readable by ledger.
+```
+   
+   Print transactions in a format readable by ledger.
 
 
-Basic Supported Flags
+### Basic Supported Flags
 
+```
 --price-db
-    Print price history for matching commodities in a format readable by ledger.
+```
+   Print price history for matching commodities in a format readable by ledger.
 
---sort VEXPR
--S VEXPR
-    Sort a report using VEXPR.
+```
+--sort 
+-s
+```
+   Sort a report using VEXPR.
 
 MUST FLAG: 
 
---file FILE
--f FILE
-    Read FILE as a ledger file.
+```
+--file FILENAME
+-f FILENAME
+```
+   Read FILE as a ledger file.
 
+
+Some example commands are as follow:
+```
+my-ledger -f index.ledger bal
+my-ledger -f index.ledger balance Asset Payable Expense
+my-ledger -f index.ledger reg 
+my-ledger -f Bitcoin.ledger reg Asset Payable Expense
+my-ledger -f index.ledger reg Asset Payable Expense -s
+my-ledger -f index.ledger print -s
+my-ledger -f index.ledger print Bank Asset
+```
+To see some examples, you can go to the output folder and check the screenshots.
